@@ -6,6 +6,7 @@ import reduce from 'lodash.reduce';
 import startsWith from 'lodash.startswith';
 import classNames from 'classnames';
 import './utils/prototypes'
+import SimpleBar from 'simplebar-react';
 
 import CountryData from './CountryData.js';
 
@@ -866,46 +867,48 @@ class PhoneInput extends React.Component {
         role='listbox'
         tabIndex='0'
       >
-        {enableSearch && (
-          <li
-            className={classNames({
-              search: true,
-              [searchClass]: searchClass,
-            })}
-          >
-            {!disableSearchIcon &&
-              <span
-                className={classNames({
-                  'search-emoji': true,
-                  [`${searchClass}-emoji`]: searchClass,
-                })}
-                role='img'
-                aria-label='Magnifying glass'
-              >
-                &#128270;
-              </span>}
-            <input
+        <SimpleBar style={{ maxHeight: 300 }}>
+          {enableSearch && (
+            <li
               className={classNames({
-                'search-box': true,
-                [`${searchClass}-box`]: searchClass,
+                search: true,
+                [searchClass]: searchClass,
               })}
-              style={searchStyle}
-              type='search'
-              placeholder={searchPlaceholder}
-              autoFocus={true}
-              autoComplete={autocompleteSearch ? 'on' : 'off'}
-              value={searchValue}
-              onChange={this.handleSearchChange}
-            />
-          </li>
-        )}
-        {countryDropdownList.length > 0
-          ? countryDropdownList
-          : (
-            <li className='no-entries-message'>
-              <span>{searchNotFound}</span>
+            >
+              {!disableSearchIcon &&
+                <span
+                  className={classNames({
+                    'search-emoji': true,
+                    [`${searchClass}-emoji`]: searchClass,
+                  })}
+                  role='img'
+                  aria-label='Magnifying glass'
+                >
+                  &#128270;
+                </span>}
+              <input
+                className={classNames({
+                  'search-box': true,
+                  [`${searchClass}-box`]: searchClass,
+                })}
+                style={searchStyle}
+                type='search'
+                placeholder={searchPlaceholder}
+                autoFocus={true}
+                autoComplete={autocompleteSearch ? 'on' : 'off'}
+                value={searchValue}
+                onChange={this.handleSearchChange}
+              />
             </li>
           )}
+          {countryDropdownList.length > 0
+            ? countryDropdownList
+            : (
+              <li className='no-entries-message'>
+                <span>{searchNotFound}</span>
+              </li>
+            )}
+        </SimpleBar>
       </ul>
     );
   }
